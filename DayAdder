@@ -1,0 +1,85 @@
+import java.util.Scanner;
+public class DayAdder {
+        static Scanner sc = new Scanner(System.in);
+        static int day,mon,year, add; 
+        void input(){
+            System.out.println("Enter the date in dd-mm-yyyy: ");
+            String s = sc.nextLine(); s = s.trim();
+            day = Integer.parseInt(s.substring(0,2));
+            mon = Integer.parseInt(s.substring(3,5));
+            year = Integer.parseInt(s.substring(6));
+            System.out.println("Enter days to add: ");
+            add = sc.nextInt();
+        }
+        void output(DayAdder d1){
+            DayAdder d2 = new DayAdder();
+            if (!leap(d1.year)){
+               if (d1.mon == 1 || d1.mon == 3 || d1.mon == 5 || d1.mon == 7 || d1.mon == 8 || d1.mon == 10 || d1.mon == 12){
+                   if ((d1.day + add)>31) {
+                        d2.day = (d1.day + add)%31; d2.mon = d1.mon + 1; 
+                        if (d2.mon>12){
+                            d2.mon = d2.mon%12;
+                            d2.year = d1.year + 1;
+                        }
+                   }
+                   else {d2.day = d1.day + add; d2.mon = d1.mon; d2.year = d1.year;}
+               }
+               else if (d1.mon == 2) {
+                   if ((d1.day + add)>28) {
+                        d2.day = (d1.day + add)%28; d2.mon = 3; d2.year = d1.year;
+                   }
+                   else {d2.day = d1.day + add; d2.mon = 2; d2.year = d1.year;}
+               }
+               else {
+                   if ((d1.day + add)>30) {
+                        d2.day = (d1.day + add)%30; d2.mon = d1.mon + 1; 
+                        if (d2.mon>12){
+                            d2.mon = d2.mon%12;
+                            d2.year = d1.year + 1;
+                        }
+                   }
+                   else { d2.day = d1.day + add; d2.mon = d1.mon; d2.year = d1.year;}
+               }
+            }
+            else {
+                if (d1.mon == 1 || d1.mon == 3 || d1.mon == 5 || d1.mon == 7 || d1.mon == 8 || d1.mon == 10 || d1.mon == 12){
+                   if ((d1.day + add)>31) {
+                        d2.day = (d1.day + add)%31; d2.mon = d1.mon + 1; 
+                        if (d2.mon>12){
+                            d2.mon = d2.mon%12;
+                            d2.year = d1.year + 1;
+                        }
+                   }
+                   else {d2.day = d1.day + add; d2.mon = d1.mon; d2.year = d1.year;}
+               }
+               else if (d1.mon == 2) {
+                   if ((d1.day + add)>29) {
+                        d2.day = (d1.day + add)%29; d2.mon = 3; d2.year = d1.year;
+                   }
+                   else {d2.day = d1.day + add; d2.mon = 2; d2.year = d1.year;}
+               }
+               else {
+                   if ((d1.day + add)>30) {
+                        d2.day = (d1.day + add)%30; d2.mon = d1.mon + 1; 
+                        if (d2.mon>12){
+                            d2.mon = d2.mon%12;
+                            d2.year = d1.year + 1;
+                        }
+                   }
+                   else { d2.day = d1.day + add; d2.mon = d1.mon; d2.year = d1.year;}
+               }
+            }
+            System.out.println("New date is: ");
+            System.out.println(d2.day + "-"+d2.mon+"-"+d2.year);
+        }
+        static boolean leap(int year){
+            int a,y; y = year;
+            a=(y%400==0)?1:((y%100==0)?(0):((y%4==0)?(1):(0)));
+            return (a==1)?true:false;
+        }
+        public static void main(String[] args){
+              DayAdder d1 = new DayAdder();
+              d1.input();
+              d1.output(d1);
+        }
+}
